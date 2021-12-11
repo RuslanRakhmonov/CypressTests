@@ -1,0 +1,3 @@
+{
+    "ignoreTestFiles": "cypress/integration/1-getting-started"
+}
