@@ -14,7 +14,7 @@ describe('verify Sign In functionality', function () {
         return randomEmail;
     }
 
-    it.only('open Create account page', function () {
+    it('open Create account page', function () {
         cy.get('a.login').click();
         cy.get("h1[class='page-heading']").should('be.visible');
         cy.get('#email_create').type(email);
@@ -38,7 +38,27 @@ describe('verify Sign In functionality', function () {
         cy.get("input[name^='news']").check();
         cy.get("input[name^='opt']").check();
         cy.get("input[name^='comp']").type('TestCompanyName');
-        cy.get("input[name='address1']").type('TesteAddress');
-
+        cy.get("input[name='address1']").type('TesteAddress1');
+        cy.get("input[name='address2']").type('TesteAddress2');
+        cy.get("input[name='city']").type('TestCity');
+        cy.get('#id_state').select('Colorado');
+        cy.get('#id_state').contains('Colorado');
+        cy.get('#postcode').type('90210');
+        cy.get('#id_country').select('United States');
+        cy.get('#other').type('Test Additional information');
+        cy.get('#phone').type('123456789');
+        cy.get('#phone_mobile').type('123456789');
+        cy.get('#alias').type('Test alias address');
+        cy.get("div[class='submit clearfix']")
+        .contains('Register').click();
+        /* For some reason demo web application clears
+        / password and state fields after Clicking on Register button
+          that's why I have to fill up them agan to proceed further*/
+        cy.get('#id_state').select('Colorado');
+        cy.get("div[class='submit clearfix']")
+        .contains('Register').click();
+        cy.get("input[type^='pass']").type(password);
+        cy.get("div[class='submit clearfix']")
+        .contains('Register').click();
     });
 })
