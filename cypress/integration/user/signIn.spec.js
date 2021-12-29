@@ -9,11 +9,6 @@ describe('verify Sign In functionality', function () {
         cy.openSignInPage();
     });
 
-    function generateRandomChars() {
-        let randomEmail = (Math.random() + 1).toString(36).substring(2) + '@gmail.com';
-        return randomEmail;
-    }
-
     it('open Create account page', function () {
         cy.get('a.login').click();
         cy.get("h1[class='page-heading']").should('be.visible');
@@ -22,12 +17,12 @@ describe('verify Sign In functionality', function () {
         cy.get("label[for^='customer_f']").should('be.visible');
     });
 
-    it.only('Fill in personal information form', function () {
+    it('Fill in personal information form', function () {
         cy.get('a.login').click();
         cy.get("h1[class='page-heading']").should('be.visible');
         cy.get('#email_create').type(email);
         cy.get('span > i.icon-user').click();
-        cy.get("label[for^='customer_f']").should('be.visible');
+        cy.get("input[name^='customer_first']", { timeout: 10000 }).should('be.visible');
         cy.get('input#id_gender1').check();
         cy.get("input[name^='customer_first']").type('TestCustomerFirstName');
         cy.get("input[name^='customer_last']").type('TestCustomerLasttName');
@@ -60,5 +55,6 @@ describe('verify Sign In functionality', function () {
         cy.get("input[type^='pass']").type(password);
         cy.get("div[class='submit clearfix']")
         .contains('Register').click();
+        cy.get('h1.page-heading').contains('My account');
     });
 })
